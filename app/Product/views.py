@@ -75,7 +75,7 @@ def filter_products(request):
                     'brand': item.brand,
                     'codebar': item.codebar,
                     'stock': item.stock,
-                    'und': item.unit,
+                    'unit': item.unit,
                     'price': item.price
                 }
                 for item in items

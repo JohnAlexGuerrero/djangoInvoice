@@ -8,7 +8,16 @@ Facturacióon
 
 {% block content %}
 <div id="app">
-    {% include "inventory/products.html" %}
+    <div class="row">
+        <div class="col-sm 6">
+            {% include "inventory/products.html" %}
+        </div>
+        <div class="col-sm 6">
+            {% include "invoicing/cart.html" %}
+        </div>
+    </div>
+
+
 </div>
 {% endblock content %}
 
