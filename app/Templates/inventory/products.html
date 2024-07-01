@@ -1,0 +1,186 @@
+<style>
+    #root{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .card-product {
+        margin-right: 2rem;
+        position: relative;
+        width: 11.875em;
+        height: 16.5em;
+        box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 120ms;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        padding: 0.5em;
+        padding-bottom: 3.4em;
+      }
+      
+      .card-product::after {
+        content: "Add to Cart";
+        padding-top: 1.25em;
+        padding-left: 1.25em;
+        position: absolute;
+        left: 0;
+        bottom: -60px;
+        background: #00AC7C;
+        color: #fff;
+        height: 2.5em;
+        width: 90%;
+        transition: all 80ms;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      
+      .card-product .title {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.9em;
+        position: absolute;
+        left: 0.625em;
+        bottom: 1.875em;
+        font-weight: 400;
+        color: #000;
+      }
+      
+      .card-product .price {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 0.9em;
+        position: absolute;
+        left: 0.625em;
+        bottom: 0.625em;
+        color: #000;
+      }
+      
+      .card-product:hover::after {
+        bottom: 0;
+        opacity: 1;
+      }
+      
+      .card-product:active {
+        transform: scale(0.98);
+      }
+      
+      .card-product:active::after {
+        content: "Added !";
+        height: 3.125em;
+      }
+      
+      .text {
+        max-width: 55px;
+      }
+      
+      .image {
+        background: rgb(241, 241, 241);
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+    }
+    /*input search*/
+    .group {
+        display: flex;
+        line-height: 28px;
+        align-items: center;
+        position: relative;
+        max-width: 190px;
+       }
+       
+       .input {
+        width: 100%;
+        height: 40px;
+        line-height: 28px;
+        padding: 0 1rem;
+        padding-left: 2.5rem;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        background-color: #f3f3f4;
+        color: #0d0c22;
+        transition: .3s ease;
+       }
+       
+       .input::placeholder {
+        color: #9e9ea7;
+       }
+       
+       .input:focus, input:hover {
+        outline: none;
+        border-color: rgba(234,76,137,0.4);
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+       }
+       
+       .icon {
+        position: absolute;
+        left: 1rem;
+        fill: #9e9ea7;
+        width: 1rem;
+        height: 1rem;
+    }          
+</style>
+
+<div class="group">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+    <input placeholder="Search" type="search" class="input" id="search">
+</div>
+<div id="root">
+</div>
+
+<script>
+    const APIURL = 'http://127.0.0.1:8000/api/v1/inventario/'
+    const app = document.querySelector('#root')
+    const search = document.querySelector('#search')
+    const IMAGEPATH = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFFD8ZNTwMX7M0cgNY6nMqUet-GJfYqD00Yw&s'
+
+
+    const getProducts = (url)=>{
+        axios.get(url)
+        .then(request =>{
+            const data = request.data.items
+            showProducts(data)
+            console.log(data)
+        })
+        .catch(error => console.log(error))
+    }
+    
+    const showProducts = (products)=>{
+        app.innerHTML = ''
+
+        products.forEach(product =>{
+            const productEl = document.createElement('div')
+            productEl.classList.add('card-product')
+
+            productEl.innerHTML = `
+            <img
+                src="${IMAGEPATH}"
+                alt="${product.codebar}"
+                class="image"
+            />
+            <span class="title">${product.description}</span>
+            <span class="price">$ ${product.price}</span>
+            `
+
+            app.appendChild(productEl)
+        })
+    }
+
+    search.addEventListener('keyup', e =>{
+      e.preventDefault()
+      let searchText = ''
+      let s = e.target.value
+
+      if(s.length > 5){
+        searchText = 'search?q=' + s
+      }
+      
+      getProducts(APIURL + searchText)
+    })
+    
+    getProducts(APIURL + 'all/')
+
+</script>

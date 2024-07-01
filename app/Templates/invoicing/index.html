@@ -1,0 +1,31 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+Facturacióon
+{% endblock title %}
+
+{% block content %}
+<div id="app">
+    {% include "inventory/products.html" %}
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    const orderItems = []
+/*
+- agregar un producto a carrito de compras
+- mostrar producto que estan contenidos en carrito de compras
+*/
+const addItemCart = item =>{
+    orderItems.push({...item})
+    showOrder(orderItems)
+}
+
+
+
+</script>
+
+{% endblock javascript %}
