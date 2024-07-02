@@ -1,358 +1,405 @@
 <style>
-      
-    .img {
-        width: 50px;
-        height: 50px;
-        margin-left: 10px;
-        border-radius: 5px;
-        background: linear-gradient(#d7cfcf, #d3d4d6);
-    }
+  .img {
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background: linear-gradient(#d7cfcf, #d3d4d6);
+  }
+
+  /*cart*/
+  .master-container {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 5px;
+  }
+
+  .card {
+    width: 500px;
+    background: #FFFFFF;
+    box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .title {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-bottom: 1px solid #efeff3;
+    font-weight: 700;
+    font-size: 11px;
+    color: #63656b;
+  }
+
+  .cart {
+    border-radius: 7px 19px 19px 7px;
+  }
+
+  .cart .products {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .cart .products .product {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px 1fr;
+    gap: 10px;
+  }
+
+  .cart .products .product span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #47484b;
+    margin-bottom: 1px;
+    display: block;
+  }
+
+  .cart .products .product p {
+    font-size: 11px;
+    font-weight: 600;
+    color: #7a7c81;
+    margin: 0;
+  }
+
+  .cart .quantity {
+    height: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    filter: drop-shadow(0px 1px 0px #efefef) drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+  }
+
+  .cart .quantity input {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #47484b;
+    border: 0;
+    text-align: center;
+  }
+
+  .cart .quantity button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    padding-bottom: 2px;
+  }
+
+  .card .small {
+    font-size: 15px;
+    margin: 0 0 auto auto;
+  }
+
+  .card .small sup {
+    font-size: px;
+  }
+
+  /* coupons */
+  .coupons {
+    border-radius: 7px;
+  }
+
+  .coupons form {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .input_field {
+    width: auto;
+    height: 36px;
+    padding: 0 0 0 12px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    filter: drop-shadow(0px 1px 0px #efefef) drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+
+  .input_field:focus {
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 0px 2px #242424;
+    background-color: transparent;
+  }
+
+  .coupons form button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 18px;
+    gap: 10px;
+    width: 100%;
+    height: 36px;
+    background: linear-gradient(180deg, #4480FF 0%, #115DFC 50%, #0550ED 100%);
+    box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+    border-radius: 5px;
+    border: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ffffff;
     
-    /*cart*/
-    .master-container {
-        display: grid;
-        grid-template-columns: auto;
-        gap: 5px;
-    }
-      
-    .card {
-        width: 500px;
-        background: #FFFFFF;
-        box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
-    }
-      
-      .title {
-        width: 100%;
-        height: 40px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        border-bottom: 1px solid #efeff3;
-        font-weight: 700;
-        font-size: 11px;
-        color: #63656b;
-      }
-      
-      .cart {
-        border-radius: 7px 19px 19px 7px;
-      }
-      
-      .cart .products {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-      }
-      
-      .cart .products .product {
-        display: grid;
-        grid-template-columns: 60px 1fr 80px 1fr;
-        gap: 10px;
-      }
-      
-      .cart .products .product span {
-        font-size: 13px;
-        font-weight: 600;
-        color: #47484b;
-        margin-bottom: 2px;
-        display: block;
-      }
-      
-      .cart .products .product p {
-        font-size: 11px;
-        font-weight: 600;
-        color: #7a7c81;
-      }
-      
-      .cart .quantity {
-        height: 30px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        margin: auto;
-        background-color: #ffffff;
-        border: 1px solid #e5e5e5;
-        border-radius: 7px;
-        filter: drop-shadow(0px 1px 0px #efefef)
-          drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
-      }
-      
-      .cart .quantity label {
-        width: 20px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-bottom: 2px;
-        font-size: 15px;
-        font-weight: 700;
-        color: #47484b;
-      }
-      
-      .cart .quantity button {
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 0;
-        outline: none;
-        background-color: transparent;
-        padding-bottom: 2px;
-      }
-      
-      .card .small {
-        font-size: 15px;
-        margin: 0 0 auto auto;
-      }
-      
-      .card .small sup {
-        font-size: px;
-      }
-      
-      /* coupons */
-      .coupons {
-        border-radius: 7px;
-      }
-      
-      .coupons form {
-        display: grid;
-        grid-template-columns: 1fr 80px;
-        gap: 10px;
-        padding: 10px;
-      }
-      
-      .input_field {
-        width: auto;
-        height: 36px;
-        padding: 0 0 0 12px;
-        border-radius: 5px;
-        outline: none;
-        border: 1px solid #e5e5e5;
-        filter: drop-shadow(0px 1px 0px #efefef)
-          drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
-        transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
-      }
-      
-      .input_field:focus {
-        border: 1px solid transparent;
-        box-shadow: 0px 0px 0px 2px #242424;
-        background-color: transparent;
-      }
-      
-      .coupons form button {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 18px;
-        gap: 10px;
-        width: 100%;
-        height: 36px;
-        background: linear-gradient(180deg, #4480FF 0%, #115DFC 50%, #0550ED 100%);
-        box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
-        border-radius: 5px;
-        border: 0;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 15px;
-        color: #ffffff;
-      }
-      
-      /* Checkout */
-      .checkout {
-        border-radius: 9px 9px 19px 19px;
-      }
-      
-      .checkout .details {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        padding: 10px;
-        gap: 5px;
-      }
-      
-      .checkout .details span {
-        font-size: 13px;
-        font-weight: 600;
-      }
-      
-      .checkout .details span:nth-child(odd) {
-        font-size: 11px;
-        font-weight: 700;
-        color: #707175;
-        margin: auto auto auto 0;
-      }
-      
-      .checkout .details span:nth-child(even) {
-        font-size: 13px;
-        font-weight: 600;
-        color: #47484b;
-        margin: auto 0 auto auto;
-      }
-      
-      .checkout .checkout--footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 10px 10px 20px;
-        background-color: #efeff3;
-      }
-      
-      .price {
-        position: relative;
-        font-size: 22px;
-        color: #2B2B2F;
-        font-weight: 900;
-      }
-      
-      .price sup {
-        font-size: 13px;
-      }
-      
-      .price sub {
-        width: fit-content;
-        position: absolute;
-        font-size: 11px;
-        color: #5F5D6B;
-        bottom: 5px;
-        display: inline-block;
-      }
-      
-      .checkout .checkout-btn {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 150px;
-        height: 36px;
-        background: linear-gradient(180deg, #4480FF 0%, #115DFC 50%, #0550ED 100%);
-        box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
-        border-radius: 7px;
-        border: 0;
-        outline: none;
-        color: #ffffff;
-        font-size: 13px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
-      }
+  }
+
+  /* Checkout */
+  .checkout {
+    border-radius: 9px 9px 19px 19px;
+  }
+
+  .checkout .details {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 10px;
+    gap: 5px;
+  }
+
+  .checkout .details span {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .checkout .details span:nth-child(odd) {
+    font-size: 11px;
+    font-weight: 700;
+    color: #707175;
+    margin: auto auto auto 0;
+  }
+
+  .checkout .details span:nth-child(even) {
+    font-size: 13px;
+    font-weight: 600;
+    color: #47484b;
+    margin: auto 0 auto auto;
+  }
+
+  .checkout .checkout--footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 10px 20px;
+    background-color: #efeff3;
+  }
+
+  .price {
+    position: relative;
+    font-size: 22px;
+    color: #2B2B2F;
+    font-weight: 900;
+  }
+
+  .total{
+    position: relative;
+  }
+
+  .price sup {
+    font-size: 13px;
+  }
+
+  .price sub {
+    width: fit-content;
+    position: absolute;
+    font-size: 11px;
+    color: #5F5D6B;
+    bottom: 5px;
+    display: inline-block;
+  }
+
+  .checkout .checkout-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 36px;
+    background: linear-gradient(180deg, #4480FF 0%, #115DFC 50%, #0550ED 100%);
+    box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+    border-radius: 7px;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
 </style>
 
 <div class="container">
-    <div class="master-container">
-        <div class="card cart">
-          <label class="title">Your cart</label>
-          <div class="products" id="id_cart"></div>
-        </div>
-      
-        <div class="card coupons">
-          <label class="title">Apply coupons</label>
-          <form class="form">
-              <input type="text" placeholder="Apply your coupons here" class="input_field">
-              <button>Apply</button>
-          </form>
-        </div>
-      
-        <div class="card checkout">
-          <label class="title">Checkout</label>
-          <div class="details">
-            <span>Your cart subtotal:</span>
-            <span>47.99$</span>
-            <span>Discount through applied coupons:</span>
-            <span>3.99$</span>
-            <span>Shipping fees:</span>
-            <span>4.99$</span>
-          </div>
-          <div class="checkout--footer">
-            <label class="price"><sup>$</sup>57.99</label>
-            <button class="checkout-btn">Checkout</button>
-          </div>
-        </div>
-      </div>
+  <div class="master-container">
+    <div class="card cart">
+      <label class="title">Your cart</label>
+      <div class="products" id="id_cart"></div>
+    </div>
+
+    <div class="card coupons">
+      <label class="title">Apply coupons</label>
+      <form class="form">
+        <input type="text" placeholder="Apply your coupons here" class="input_field">
+        <button>Apply</button>
+      </form>
+    </div>
+
+    <div class="card checkout"></div>
+  </div>
 </div>
 
 <script>
-    const cart = document.querySelector('#id_cart')
-    var items = []
+  const cart = document.querySelector('#id_cart')
+  var items = []
 
-    /*function for add one item a cart*/
-    const addItemCart = (e, item)=>{
-        e.preventDefault()
-        items.push(item)
-        addLS()
-    }
+  /*function for add one item a cart*/
+  const addItemCart = (e, item) => {
+    e.preventDefault()
+    item.qty = 1
+    item.total = item.price * item.qty
+    items.push(item)
+    addLS()
+  }
 
-    /*function for updated info in local storage*/
-    const addLS = ()=>{
-        let products = []
+  /*function for updated info in local storage*/
+  const addLS = () => {
 
-        items.forEach(item =>{
-            products.push({
-                name: item.description,
-                codebar: item.codebar,
-                brand: item.brand,
-                qty: 1,
-                unit: item.unit,
-                price: item.price
-            })
-        })
+    let products = []
+    let total = 0
 
-        localStorage.setItem('items', JSON.stringify(products))
-        showCart()
-    }
+    items.forEach(item => {
+      products.push({
+        id: item.id,
+        name: item.description,
+        codebar: item.codebar,
+        brand: item.brand,
+        qty: item.qty,
+        unit: item.unit,
+        price: item.price,
+        total: item.total,
+        stock: item.stock 
+      })
+      total += item.total 
+    })
 
-    /*function for show items in cart*/
-    const showCart = ()=>{
-        var products = JSON.parse(localStorage.getItem('items'))
-        cart.innerHTML = ''
+    localStorage.setItem('items', JSON.stringify(products))
+    localStorage.setItem('total', JSON.stringify(total))
+    showCart()
+  }
 
-        products.forEach(item =>{
-            const itemEl = document.createElement('div')
-            itemEl.classList.add('product')
+  /*function for show items in cart*/
+  const showCart = () => {
+    var products = JSON.parse(localStorage.getItem('items'))
+    cart.innerHTML = ''
 
-            itemEl.innerHTML = `
-                <img
-                    src="${IMAGEPATH}"
-                    alt="${item.codebar}" 
-                    class="img"
-                /img>
-                <div>
-                    <span>${item.name.toUpperCase()}</span>
-                    <p>${item.brand}</p>
-                    <p>Cod:${item.codebar}</p>
-                </div>
-                <div class="quantity">
-                    <button>
-                        <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M20 12L4 12"></path>
-                        </svg>
-                    </button>
-                    <label>1</label>
-                    <button onclick="addQty()">
-                        <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M12 4V20M20 12H4"></path>
-                        </svg>
-                    </button>
-                </div>
-                <label class="price small">$ ${item.price}</label>
-            `
-            
-            cart.appendChild(itemEl)
-        })
-    }
+    products.forEach(item => {
+      const itemEl = document.createElement('div')
+      itemEl.classList.add('product')
 
-    /*function for add one unit in the item*/
-    const addQty = ()=>{
-        
-    }
+      itemEl.innerHTML = `
+          <img
+            src="${IMAGEPATH}"
+            alt="${item.codebar}" 
+            class="img"
+          />
+          <div>
+            <span>${item.name.toUpperCase()}</span>
+            <p>${item.brand}</p>
+            <p>Disponible: ${item.stock} / ${item.unit}</p>
+            <p>SKU: ${item.codebar}</p>
+          </div>
+          <div class="quantity">
+            <button onclick="minusQty(${item.id})">
+              <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M20 12L4 12"></path>
+              </svg>
+            </button>
+            <input type="text" value="${item.qty}" id="input_qty_${item.id}">
+            <button onclick="addQty(${item.id})">
+              <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M12 4V20M20 12H4"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="price" style="display:flex; flex-direction:column;align-items: end;">
+            <label class="price small">
+              <small style="color:#d6d6d6d6d;">x</small>
+              $ ${item.price}
+            </label>
+            <label class="small">
+              Total $${item.total}
+            </label>
+          </div>
+        `
 
-    /*function for delete item from cart*/
-    const deleteItemCart = (item)=>{
+      cart.appendChild(itemEl)
+    })
 
-    }
+    getTotalCart()
+  }
 
-    /*function for calculation total value cart*/
-    const getTotalCart = ()=>{
-        return 0
-    }
+  /*function for add one unit in the item*/
+  const addQty = (id) => {
+    const qtyEl = document.querySelector('#input_qty_' + id)
+    const item = items.filter(el => el.id == id)[0]
+    item.qty = item.qty + 1
+    item.total = (item.price * item.qty)
+    qtyEl.value = item.qty
+    addLS()
+  }
+
+  /*function for rest one unit in the item*/
+  const minusQty = (id) => {
+    const qtyEl = document.querySelector('#input_qty_' + id)
+    const item = items.filter(el => el.id == id)[0]
+    item.qty = item.qty - 1
+    item.total = item.price * item.qty
+    qtyEl.value = item.qty
+    addLS()
+  }
+
+  /*function for delete item from cart*/
+  const deleteItemCart = (item) => {
+
+  }
+
+  /*function for calculation total value cart*/
+  const getTotalCart = () => {
+    const checkoutEl = document.querySelector('.checkout')
+    const total = localStorage.getItem('total')
+
+    checkoutEl.innerHTML = `
+      <label class="title">Checkout</label>
+      <div class="details">
+        <span>Your cart subtotal</span>
+        <span>$47.99</span>
+        <span>Discount through applied</span>
+        <span>$3.99</span>
+        <span>Iva tarifa 19%</span>
+        <span>$4.99</span>
+      </div>
+      <div class="checkout--footer">
+        <label class="price"><sup>$</sup>${total}</label>
+        <button class="checkout-btn">Pagar</button>
+      </div>
+    `
+  }
+
+  addLS()
+
+  getTotalCart()
 
 </script>
