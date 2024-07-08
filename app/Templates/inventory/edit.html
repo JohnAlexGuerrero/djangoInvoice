@@ -4,7 +4,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <form>
+    <form id="formEdit">
       <div class="mb-3 has-validation">
         <label for="exampleFormControlTextarea1" class="form-label">Nombre del producto</label>
         <textarea class="form-control form-control-sm" id="id_description" rows="3"
@@ -49,6 +49,9 @@
         <label for="exampleFormControlInput1" class="form-label">Precio</label>
         <input type="text" class="form-control form-control-sm" id="id_price" placeholder="" value="0">
       </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
     </form>
   </div>
 </div>
@@ -61,6 +64,9 @@
   const unitPEl = document.querySelector('#id_unit')
   const costPEl = document.querySelector('#id_cost')
   const pricePEl = document.querySelector('#id_price')
+  const formEditEl = document.querySelector('#formEdit')
+
+  formEditEl.addEventListener('submit', alert('jdkfjkfdf'))
 
   const setEditProduct = (item) => {
     axios.get(`http://127.0.0.1:8000/api/v1/inventory/item/${item}`)

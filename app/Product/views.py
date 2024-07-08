@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 import json
+import decimal
 
 from django.views.generic import TemplateView
 
@@ -14,6 +15,31 @@ from Product.forms import ProductNewForm
 class HomeView(TemplateView):
     template_name = "inventory/index.html"
 
+#patch product
+@csrf_exempt
+def update_product(request, *args, **kwargs):
+    if request.method == 'PATCH':
+        data = json.loads(request.body.decode('utf-8'))
+        product = Product.objects.get(id=kwargs['pk'])
+        print(decimal.Decimal(data['cost']))
+        
+        if product:
+            product.description = data['description']
+            product.codebar = data['codebar']
+            product.brand = data['brand']
+            product.stock = data['stock']
+            product.unit = data['unit']
+            product.cost = decimal.Decimal(data['cost'])
+            product.price = decimal.Decimal(float(data['price']))
+            product.save()
+ 
+            return JsonResponse({
+                'message':f'{product.description} fue actualizado con exito.'
+            })
+    return JsonResponse({
+        'message':'no fue posible la actualización.'
+    })
+    
 #list all brands
 def list_brands(request):
     brands = Product.objects.all().values('id','brand')
