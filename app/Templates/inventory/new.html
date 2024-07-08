@@ -12,22 +12,25 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form" method='POST'>
-                    <div class="mb-3">
+                <form id="form" method='POST' class="needs-validation" novalidate>
+                    <div class="mb-3 has-validation">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
-                        <textarea class="form-control form-control-sm" id="description" rows="3" placeholder="Escribe la descripción del producto"></textarea>
+                        <textarea class="form-control form-control-sm" id="description" rows="3" placeholder="Escribe la descripción del producto" required></textarea>
+                        <div class="invalid-feedback">No puede estar vacío</div>                      
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Código</label>
-                                <input type="text" class="form-control form-control-sm" id="codebar" placeholder="">
+                                <input type="text" class="form-control form-control-sm" id="codebar" placeholder="" required>
+                                <div class="invalid-feedback">No puede estar vacío</div>                      
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Marca</label>
                                 <input type="text" class="form-control form-control-sm" id="brand" placeholder="">
+                                <div class="invalid-feedback">No puede estar vacío</div>                      
                             </div>
                         </div>
                     </div>
@@ -47,24 +50,22 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Costo unitario</label>
-                        <input type="text" class="form-control form-control-sm" id="cost" placeholder="">
+                        <input type="text" class="form-control form-control-sm" id="cost" placeholder="" value="0">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                        <input type="text" class="form-control form-control-sm" id="price" placeholder="">
+                        <input type="text" class="form-control form-control-sm" id="price" placeholder="" value="0">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submit" class="btn btn-primary">Crear producto</button>
+                <button type="submit" id="submit" class="btn btn-primary">Crear producto</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const APIURLNEW = 'http://127.0.0.1:8000/api/v1/inventory/new/'
-
     const descriptionEl = document.querySelector('#description')
     const codebarEl = document.querySelector('#codebar')
     const brandEl = document.querySelector('#brand')
@@ -75,9 +76,19 @@
     const formEl = document.querySelector('#submit')
 
     formEl.addEventListener('click', () => {
-        createNewProduct()
-        cleanFieldsForm()
+        if(fieldIsEmpty(descriptionEl) && fieldIsEmpty(codebarEl)){
+            createNewProduct()
+            location.reload()
+        }
     })
+
+    const fieldIsEmpty = (field)=>{
+        if(field.value.length > 3){
+            return true
+        }
+        
+        return false
+    }
 
     const cleanFieldsForm = ()=>{
         descriptionEl.value = ''
@@ -91,7 +102,7 @@
     
     const createNewProduct = ()=>{
         const config = {
-            url: APIURLNEW,
+            url: 'http://127.0.0.1:8000/api/v1/inventory/new/',
             method: 'POST',
             data: {
                 description: descriptionEl.value,
@@ -110,6 +121,7 @@
             })
             .catch(error =>console.error('Error al realizar la solicitud POST:', error)
         )
+        cleanFieldsForm()
     }
 
 </script>

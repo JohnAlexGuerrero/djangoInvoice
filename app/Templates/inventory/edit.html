@@ -1,0 +1,84 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Editar producto</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form>
+      <div class="mb-3 has-validation">
+        <label for="exampleFormControlTextarea1" class="form-label">Nombre del producto</label>
+        <textarea class="form-control form-control-sm" id="id_description" rows="3"
+          placeholder="Escribe la descripción del producto" required></textarea>
+        <div class="invalid-feedback">No puede estar vacío</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Código</label>
+            <input type="text" class="form-control form-control-sm" id="id_codebar" placeholder="" required>
+            <div class="invalid-feedback">No puede estar vacío</div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Marca</label>
+            <input type="text" class="form-control form-control-sm" id="id_brand" placeholder="">
+            <div class="invalid-feedback">No puede estar vacío</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+            <input type="number" class="form-control form-control-sm" id="id_stock" value="0">
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Unidad</label>
+            <input type="text" class="form-control form-control-sm" id="id_unit" placeholder="">
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Costo unitario</label>
+        <input type="text" class="form-control form-control-sm" id="id_cost" placeholder="" value="0">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Precio</label>
+        <input type="text" class="form-control form-control-sm" id="id_price" placeholder="" value="0">
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const nameEl = document.querySelector('#id_description')
+  const codeEl = document.querySelector('#id_codebar')
+  const brandPEl = document.querySelector('#id_brand')
+  const stockEl = document.querySelector('#id_stock')
+  const unitPEl = document.querySelector('#id_unit')
+  const costPEl = document.querySelector('#id_cost')
+  const pricePEl = document.querySelector('#id_price')
+
+  const setEditProduct = (item) => {
+    axios.get(`http://127.0.0.1:8000/api/v1/inventory/item/${item}`)
+      .then(response => {
+        let data = response.data.item
+        getProduct(data[0])
+      }).catch(err => console.log(err))
+  }
+
+  const getProduct = (product)=>{
+    const {description, codebar, brand, stock, unit, cost, price} = product
+    nameEl.textContent = description
+    codeEl.value = codebar
+    brandPEl.value = brand
+    stockEl.value = stock
+    unitPEl.value = unit
+    costPEl.value = cost
+    pricePEl.value = price
+  }
+
+</script>

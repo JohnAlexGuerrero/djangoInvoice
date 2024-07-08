@@ -1,14 +1,17 @@
 from django.urls import path
 
 from Product.views import list_products, create_product, product_detail, filter_products, list_brands
+from Product.views import HomeView
 
 urlpatterns = [
+    #GET inventory
+    path('', HomeView.as_view(), name='inventory'),
     #GET api/v1/inventario/all
     path('all/', list_products, name='products'),
     #POST api/v1/inventory/new
     path('new/', create_product, name='product_new'),
-    #GET api/v1/inventario/item/:slug
-    path('item/<slug:slug>', product_detail, name='product_detail'),
+    #GET api/v1/inventory/item/:pk
+    path('item/<int:pk>', product_detail, name='product_detail'),
     #UPDATE api/v1/inventario/item/:slug/active
     # path('item/<slug:slug>/active', name='product_active'),
     #UPDATE api/v1/inventario/item/:slug/stock

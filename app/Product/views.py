@@ -4,10 +4,15 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.views.generic import TemplateView
+
 from Product.models import Product
 from Product.forms import ProductNewForm
 
 # Create your views here.
+
+class HomeView(TemplateView):
+    template_name = "inventory/index.html"
 
 #list all brands
 def list_brands(request):
@@ -25,7 +30,7 @@ def list_brands(request):
 
 #list all products
 def list_products(request):
-    items = Product.objects.all()
+    items = Product.objects.all().order_by('-id')
     
     return JsonResponse({
         "items":[
@@ -37,7 +42,7 @@ def list_products(request):
                 'codebar': item.codebar,
                 'stock': item.stock,
                 'und': item.unit,
-                'price': item.price
+                'price': item.price,
             }
             for item in items
         ]
@@ -68,11 +73,11 @@ def create_product(request):
          
 
 #GET: details product
-def product_detail(request):
-    item = Product.objects.get(slug=request.GET.get('slug'))
+def product_detail(request, *args, **kwargs):
+    item = Product.objects.get(id=kwargs['pk'])
 
     return JsonResponse({
-        [
+        "item":[
             {
                 'id': item.id,
                 'description': item.description,
@@ -80,8 +85,9 @@ def product_detail(request):
                 'brand': item.brand,
                 'codebar': item.codebar,
                 'stock': item.stock,
-                'und': item.und,
-                'price': item.price
+                'unit': item.unit,
+                'price': item.price,
+                'cost': item.cost
             }
             
         ]
