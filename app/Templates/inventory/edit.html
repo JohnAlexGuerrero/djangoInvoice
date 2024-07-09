@@ -65,26 +65,51 @@
   const costPEl = document.querySelector('#id_cost')
   const pricePEl = document.querySelector('#id_price')
   const formEditEl = document.querySelector('#formEdit')
+  let id = 0
 
-  formEditEl.addEventListener('submit', alert('jdkfjkfdf'))
+  formEditEl.addEventListener('submit', (evt) =>{
+    evt.preventDefault()
+    updateProduct(id)
+  })
 
   const setEditProduct = (item) => {
     axios.get(`http://127.0.0.1:8000/api/v1/inventory/item/${item}`)
       .then(response => {
-        let data = response.data.item
-        getProduct(data[0])
+        let data = response.data.item[0]
+        id = formProduct(data)
+        
       }).catch(err => console.log(err))
-  }
+    }
+    
+    const formProduct = (product)=>{
+      const {id, description, codebar, brand, stock, unit, cost, price} = product
 
-  const getProduct = (product)=>{
-    const {description, codebar, brand, stock, unit, cost, price} = product
-    nameEl.textContent = description
-    codeEl.value = codebar
-    brandPEl.value = brand
-    stockEl.value = stock
-    unitPEl.value = unit
-    costPEl.value = cost
-    pricePEl.value = price
+      nameEl.value = description
+      codeEl.value = codebar
+      brandPEl.value = brand
+      stockEl.value = stock
+      unitPEl.value = unit
+      costPEl.value = cost
+      pricePEl.value = price
+
+      return id
+    }
+
+  const updateProduct = (pk)=>{
+    axios({
+      method: 'patch',
+      url:`http://127.0.0.1:8000/api/v1/inventory/item/${pk}/edit`,
+      data:{
+        description: nameEl.value,
+        codebar: codeEl.value,
+        brand: brandPEl.value,
+        stock: stockEl.value,
+        unit: unitPEl.value,
+        cost: costPEl.value,
+        price: pricePEl.value
+      }
+    }).then(response => console.log(response.data))
+    .catch(err => console.log(err))
   }
 
 </script>

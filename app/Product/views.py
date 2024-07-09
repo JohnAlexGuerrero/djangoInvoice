@@ -21,7 +21,6 @@ def update_product(request, *args, **kwargs):
     if request.method == 'PATCH':
         data = json.loads(request.body.decode('utf-8'))
         product = Product.objects.get(id=kwargs['pk'])
-        print(decimal.Decimal(data['cost']))
         
         if product:
             product.description = data['description']
@@ -30,7 +29,7 @@ def update_product(request, *args, **kwargs):
             product.stock = data['stock']
             product.unit = data['unit']
             product.cost = decimal.Decimal(data['cost'])
-            product.price = decimal.Decimal(float(data['price']))
+            product.price = decimal.Decimal(data['price'])
             product.save()
  
             return JsonResponse({
