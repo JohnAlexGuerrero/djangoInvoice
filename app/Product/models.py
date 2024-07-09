@@ -6,15 +6,13 @@ from django.db.models import Count
 
 
 # Create your models here.
-class Units(models.TextChoices):
-    UND = 'Und'
     
 class Product(models.Model):
     description = models.CharField(("Descripción"), max_length=150, unique=True)
     codebar = models.CharField(("Codigo"), max_length=20, unique=True)
     brand = models.CharField(("Marca"), max_length=150, blank=True, null=True)
     stock = models.IntegerField(("Stock"), default=0)
-    unit = models.CharField(("Unidad de medida"), max_length=50, default=Units.UND, choices=Units)
+    unit = models.CharField(("Unidad de medida"), max_length=50, default='Und')
     cost = models.DecimalField(("Costo"), max_digits=10, decimal_places=2, default=0.0)
     price = models.DecimalField(("Precio"), max_digits=10, decimal_places=2, default=0.0)
     weigth = models.FloatField(("Peso"), default=0.0)

@@ -1,132 +1,186 @@
 <style>
-    #root{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    
-    .card-product {
-        margin-right: 2rem;
-        position: relative;
-        width: 11.875em;
-        height: 16.5em;
-        box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
-        cursor: pointer;
-        transition: all 120ms;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        padding: 0.5em;
-        padding-bottom: 3.4em;
-      }
-      
-      .card-product::after {
-        content: "Add to Cart";
-        padding-top: 1.25em;
-        padding-left: 1.25em;
-        position: absolute;
-        left: 0;
-        bottom: -60px;
-        background: #00AC7C;
-        color: #fff;
-        height: 2.5em;
-        width: 90%;
-        transition: all 80ms;
-        font-weight: 600;
-        text-transform: uppercase;
-        opacity: 0;
-      }
-      
-      .card-product .title {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 0.9em;
-        position: absolute;
-        left: 0.625em;
-        bottom: 1.875em;
-        font-weight: 400;
-        color: #000;
-      }
-      
-      .card-product .price {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 0.9em;
-        position: absolute;
-        left: 0.625em;
-        bottom: 0.625em;
-        color: #000;
-      }
-      
-      .card-product:hover::after {
-        bottom: 0;
-        opacity: 1;
-      }
-      
-      .card-product:active {
-        transform: scale(0.98);
-      }
-      
-      .card-product:active::after {
-        content: "Added !";
-        height: 3.125em;
-      }
-      
-      .text {
-        max-width: 55px;
-      }
-      
-      .image {
-        background: rgb(241, 241, 241);
-        width: 100%;
-        height: 100%;
-        display: grid;
-        place-items: center;
-    }
-    /*input search*/
-    .group {
-        display: flex;
-        line-height: 28px;
-        align-items: center;
-        position: relative;
-        max-width: 190px;
-       }
-       
-       .input {
-        width: 100%;
-        height: 40px;
-        line-height: 28px;
-        padding: 0 1rem;
-        padding-left: 2.5rem;
-        border: 2px solid transparent;
-        border-radius: 8px;
-        outline: none;
-        background-color: #f3f3f4;
-        color: #0d0c22;
-        transition: .3s ease;
-       }
-       
-       .input::placeholder {
-        color: #9e9ea7;
-       }
-       
-       .input:focus, input:hover {
-        outline: none;
-        border-color: rgba(234,76,137,0.4);
-        background-color: #fff;
-        box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
-       }
-       
-       .icon {
-        position: absolute;
-        left: 1rem;
-        fill: #9e9ea7;
-        width: 1rem;
-        height: 1rem;
-    }          
+  #root {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-product {
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    width: 11.875em;
+    height: 16.5em;
+    box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.3);
+    transition: all 120ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 0.5em;
+    padding-bottom: 3.4em;
+    position:relative;
+  }
+
+  /*
+  .card-product::after {
+    content: "Add to Cart";
+    padding-top: 1.25em;
+    padding-left: 1.25em;
+    position: absolute;
+    left: 0;
+    bottom: -60px;
+    background: #00AC7C;
+    color: #fff;
+    height: 2.5em;
+    width: 90%;
+    transition: all 80ms;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0;
+  }
+  */
+
+  .card-product .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 1.875em;
+    font-weight: 400;
+    color: #000;
+  }
+
+  .card-product .price {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 0.625em;
+    color: #000;
+  }
+
+  .card-product:hover::after {
+    bottom: 0;
+    opacity: 1;
+  }
+
+  .card-product:active {
+    transform: scale(0.98);
+  }
+
+  .card-product:active::after {
+    content: "Added !";
+    height: 3.125em;
+  }
+
+  .text {
+    max-width: 55px;
+  }
+
+  .image {
+    background: rgb(241, 241, 241);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  /*input search*/
+  .group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 100;
+  }
+
+  .input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+  }
+
+  .input::placeholder {
+    color: #9e9ea7;
+  }
+
+  .input:focus,
+  input:hover {
+    outline: none;
+    border-color: rgba(234, 76, 137, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  }
+
+  .icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .buttonContainer {
+    position: absolute;
+    bottom:0;
+    right:0;
+    margin:.5rem;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+  }
+  
+  .acceptButton {
+    width: 80px;
+    height: 30px;
+    background-color: #dadad;
+    transition-duration: .2s;
+    border: none;
+    color: rgb(46, 46, 46);
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 20px;
+    transition: all .6s ease;
+  }
+  
+  .declineButton {
+    width: 80px;
+    height: 30px;
+    background-color: a;
+    transition-duration: .2s;
+    color: ;
+    border: none;
+    cursor: not-allowed;
+    font-weight: 600;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px #bebdbd, 0 2px 4px -1px #bebdbd;
+    transition: all .6s ease;
+  }
+  
+  .acceptButton:hover {
+    background-color: #dadad;
+    box-shadow: 0 10px 15px -3px #bebdbd, 0 4px 6px -2px #bebdbd;
+    transition-duration: .2s;
+  }
 </style>
 
 <div class="container">
   <div class="group">
-    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+      <g>
+        <path
+          d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+        </path>
+      </g>
+    </svg>
     <input placeholder="Search" type="search" class="input" id="search">
   </div>
   <div id="root" class="mt-3">
@@ -134,55 +188,69 @@
 </div>
 
 <script>
-    const APIURL = 'http://127.0.0.1:8000/api/v1/inventario/'
-    const app = document.querySelector('#root')
-    const search = document.querySelector('#search')
-    const IMAGEPATH = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFFD8ZNTwMX7M0cgNY6nMqUet-GJfYqD00Yw&s'
+  const APIURL = 'http://127.0.0.1:8000/api/v1/'
+
+  const app = document.querySelector('#root')
+  const search = document.querySelector('#search')
+  const IMAGEPATH = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFFD8ZNTwMX7M0cgNY6nMqUet-GJfYqD00Yw&s'
 
 
-    const getProducts = (url)=>{
-        axios.get(url)
-        .then(request =>{
-            const data = request.data.items
-            showProducts(data)
-        })
-        .catch(error => console.log(error))
-    }
-    
-    const showProducts = (products)=>{
-        app.innerHTML = ''
+  const getProducts = (url) => {
+    axios.get(url)
+      .then(request => {
+        const data = request.data.items
+        showProducts(data)
+      })
+      .catch(error => console.log(error))
+  }
 
-        products.forEach(product =>{
-          const productEl = document.createElement('div')
-          productEl.classList.add('card-product')
+  const showProducts = (products) => {
+    app.innerHTML = ''
 
-          productEl.innerHTML = `
-          <img
-            src="${IMAGEPATH}"
-            alt="${product.codebar}"
-            class="image"
-          />
-          <span class="title">${product.description}</span>
-          <span class="price">$ ${product.price}</span>
-          `
-          productEl.addEventListener('click', e => addItemCart(e, product))
+    products.forEach(product => {
+      const productEl = document.createElement('div')
+      productEl.classList.add('card-product')
 
-          app.appendChild(productEl)
-        })
-    }
-
-    search.addEventListener('keyup', e =>{
-      e.preventDefault()
-      let searchText = ''
-      let s = e.target.value
-
-      if(s.length > 5){
-        searchText = 'search?q=' + s
-      }
-      
-      getProducts(APIURL + searchText)
+      productEl.innerHTML = `
+        <img
+          src="${IMAGEPATH}"  
+          alt="${product.codebar}"
+          class="image"
+        />
+        <span class="title">${product.description}</span>
+        <span class="price">$ ${product.price}</span>
+        
+        <div class="buttonContainer">
+          <button 
+            class="acceptButton" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#offcanvasRight" 
+            aria-controls="offcanvasRight"
+            onclick="setEditProduct(${product.id})"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+              <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+            </svg>
+            Edit
+          </button>
+        </div>
+      `
+      app.appendChild(productEl)
     })
-    
-    getProducts(APIURL + 'all/')
+  }
+
+  search.addEventListener('keyup', e => {
+    e.preventDefault()
+    let searchText = ''
+    let s = e.target.value
+
+    if (s.length > 4) {
+      searchText = 'inventory/search?q=' + s
+    }
+
+    getProducts(APIURL + searchText)
+  })
+
+  getProducts(`${APIURL}inventory/all/`)
 
 </script>

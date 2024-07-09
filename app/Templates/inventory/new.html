@@ -1,0 +1,127 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Nuevo producto
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" method='POST' class="needs-validation" novalidate>
+                    <div class="mb-3 has-validation">
+                        <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+                        <textarea class="form-control form-control-sm" id="description" rows="3" placeholder="Escribe la descripción del producto" required></textarea>
+                        <div class="invalid-feedback">No puede estar vacío</div>                      
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Código</label>
+                                <input type="text" class="form-control form-control-sm" id="codebar" placeholder="" required>
+                                <div class="invalid-feedback">No puede estar vacío</div>                      
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Marca</label>
+                                <input type="text" class="form-control form-control-sm" id="brand" placeholder="">
+                                <div class="invalid-feedback">No puede estar vacío</div>                      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Cantidad inicial</label>
+                                <input type="number" class="form-control form-control-sm" id="qty" value="0">
+                            </div>  
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Unidad</label>
+                                <input type="text" class="form-control form-control-sm" id="unit" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Costo unitario</label>
+                        <input type="text" class="form-control form-control-sm" id="cost" placeholder="" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                        <input type="text" class="form-control form-control-sm" id="price" placeholder="" value="0">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="submit" class="btn btn-primary">Crear producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const descriptionEl = document.querySelector('#description')
+    const codebarEl = document.querySelector('#codebar')
+    const brandEl = document.querySelector('#brand')
+    const qtyEl = document.querySelector('#qty')
+    const unitEl = document.querySelector('#unit')
+    const costEl = document.querySelector('#cost')
+    const priceEl = document.querySelector('#price')
+    const formEl = document.querySelector('#submit')
+
+    formEl.addEventListener('click', () => {
+        if(fieldIsEmpty(descriptionEl) && fieldIsEmpty(codebarEl)){
+            createNewProduct()
+            location.reload()
+        }
+    })
+
+    const fieldIsEmpty = (field)=>{
+        if(field.value.length > 3){
+            return true
+        }
+        
+        return false
+    }
+
+    const cleanFieldsForm = ()=>{
+        descriptionEl.value = ''
+        codebarEl.value = ''
+        brandEl.value = ''
+        qtyEl.value = 0
+        unitEl.value = 'Und'
+        costEl.value = 0.0
+        priceEl.value = 0.0
+    }
+    
+    const createNewProduct = ()=>{
+        const config = {
+            url: 'http://127.0.0.1:8000/api/v1/inventory/new/',
+            method: 'POST',
+            data: {
+                description: descriptionEl.value,
+                codebar: codebarEl.value,
+                brand: brandEl.value,
+                qty: qtyEl.value,
+                unit: unitEl.value,
+                cost: costEl.value,
+                price: priceEl.value
+            }
+        }
+
+        axios(config)
+            .then(response =>{
+                console.log('Solicitud POST exitosa:', response.data)
+            })
+            .catch(error =>console.error('Error al realizar la solicitud POST:', error)
+        )
+        cleanFieldsForm()
+    }
+
+</script>
