@@ -1,0 +1,27 @@
+<div class="dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Categoria
+    </button>
+    <ul class="dropdown-menu" id="dropdown-category"></ul>
+</div>
+
+<script>
+  const getCategories = ()=>{
+    fetch('http://127.0.0.1:8000/api/v1/category/all')
+    .then(response => response.json())
+    .then(result => {
+      const menuEl = document.querySelector('#dropdown-category')
+      const categories = result.data;
+
+      categories.forEach(el =>{
+        const li = document.createElement('li')
+        li.innerHTML = `<li><a class="dropdown-item" href="#">${el.description}</a></li>`
+        menuEl.appendChild(li)
+      })
+
+    })
+    .catch(error => console.log(error))
+  }
+
+  getCategories()
+</script>

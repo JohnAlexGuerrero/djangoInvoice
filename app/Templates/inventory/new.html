@@ -12,7 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form" method='POST' class="needs-validation" novalidate>
+                <form id="form" class="needs-validation" novalidate>
                     <div class="mb-3 has-validation">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
                         <textarea class="form-control form-control-sm" id="description" rows="3" placeholder="Escribe la descripción del producto" required></textarea>
@@ -56,6 +56,12 @@
                         <label for="exampleFormControlInput1" class="form-label">Precio</label>
                         <input type="text" class="form-control form-control-sm" id="price" placeholder="" value="0">
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Categoria</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" id="category">
+                            <option>Seleccione categoria</option>
+                        </select>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" id="submit" class="btn btn-primary">Crear producto</button>
                     </div>
@@ -74,8 +80,33 @@
     const costEl = document.querySelector('#cost')
     const priceEl = document.querySelector('#price')
     const formEl = document.querySelector('#submit')
+    const categoryEl = document.querySelector('#category')
 
-    formEl.addEventListener('click', () => {
+    
+    const getCategories_ = ()=>{
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/api/v1/category/all/',
+        })
+        .then(response => {
+            let categories = response.data.categories
+            
+            categories.forEach(el =>{
+                const option = document.createElement('option')
+                option.value = el.id
+                option.textContent = el.description
+
+                categoryEl.appendChild(option)
+            })
+        })
+        .catch(err => console.log(err))
+    }
+    
+    getCategories_()
+
+    formEl.addEventListener('click', (e) => {
+        e.preventDefault()
+        
         if(fieldIsEmpty(descriptionEl) && fieldIsEmpty(codebarEl)){
             createNewProduct()
             location.reload()
@@ -111,7 +142,8 @@
                 qty: qtyEl.value,
                 unit: unitEl.value,
                 cost: costEl.value,
-                price: priceEl.value
+                price: priceEl.value,
+                category: categoryEl.value
             }
         }
 

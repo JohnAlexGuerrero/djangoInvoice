@@ -10,7 +10,7 @@ def categories_all(request):
     categories = Category.objects.all().order_by('description')
     
     return JsonResponse({
-        "categories":[
+        "data": [
             {
                 "id": category.id,
                 "description": category.description
@@ -28,9 +28,11 @@ def create_category(request):
         if category:
             category.save()
             response_data = {
+                'method': request.method,
+                'Content-Type': request.content_type,
                 'message': 'La categoria fue creada con éxito.',
             }
-            
+                        
             return JsonResponse(response_data)
     return JsonResponse({'message':'Invalid request method. Use POST to create a product.'})
 

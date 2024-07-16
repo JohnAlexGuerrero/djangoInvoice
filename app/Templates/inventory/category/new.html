@@ -1,0 +1,52 @@
+<button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#modalCategoria">
+    Nuevo categoria
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCategory">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Nombre de categoria</label>
+                        <input type="text" class="form-control form-control-sm" id="description" placeholder="descripcion de la categoria">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="submit" class="btn btn-primary">Crear categoria</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const descriptionCategoryEl = document.querySelector('#description')
+    const formCategoryEl = document.querySelector('#formCategory')
+
+    formCategoryEl.addEventListener('submit', (e)=>{
+        e.preventDefault()
+        createCategory()
+    })
+
+    const createCategory = ()=>{
+        axios({
+            url:'http://localhost:8000/api/v1/category/new/',
+            method:'POST',
+            data:{
+                description: descriptionCategoryEl.value
+            }
+        }).then(response =>{
+            console.log('solicitud POST exitosa.')
+        }).catch(err => console.log(err))
+
+        descriptionCategoryEl.value = ""
+    }
+
+</script>

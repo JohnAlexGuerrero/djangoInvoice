@@ -10,6 +10,8 @@ Inventario
 <div class="container mt-5">
     <div class="d-flex justify-content-between">
         <h2>Inventario</h2>
+        {% include "inventory/category/listCategories.html" %}
+
         {% include "inventory/new.html" %}
     </div>
     {% include "inventory/edit.html" %}
