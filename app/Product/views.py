@@ -1,22 +1,39 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 import decimal
 
-from django.views.generic import TemplateView
-
 from Product.models import Product
+from Category.models import Category
+
 from Product.forms import ProductNewForm
 
 # Create your views here.
+#GET: filter products by category
+def filter_product_by_category(request, *args, **kwargs):
+    if kwargs['slug']:
+        items = Product.objects.filter(category__slug=kwargs['slug'])
 
-class HomeView(TemplateView):
-    template_name = "inventory/index.html"
+        return JsonResponse({
+            "items":[
+                {
+                    'id': item.id,
+                    'description': item.description,
+                    'slug': item.slug,
+                    'brand': item.brand,
+                    'codebar': item.codebar,
+                    'stock': item.stock,
+                    'unit': item.unit,
+                    'price': item.price
+                }
+                for item in items
+            ]
+        })
 
 #patch product
-@csrf_exempt
+@csrf_protect
 def update_product(request, *args, **kwargs):
     if request.method == 'PATCH':
         data = json.loads(request.body.decode('utf-8'))
@@ -30,6 +47,7 @@ def update_product(request, *args, **kwargs):
             product.unit = data['unit']
             product.cost = decimal.Decimal(data['cost'])
             product.price = decimal.Decimal(data['price'])
+            product.category = data['category']
             product.save()
  
             return JsonResponse({
@@ -78,6 +96,8 @@ def list_products(request):
 def create_product(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
+        category = Category.objects.get(id=data['category'])
+        
         product = Product(
             description=data['description'],
             codebar=data['codebar'],
@@ -85,7 +105,8 @@ def create_product(request):
             stock=data['qty'],
             unit=data['unit'],
             cost=data['cost'],
-            price=data['price']
+            price=data['price'],
+            category= category
         )
         if product:
             product.save()
@@ -124,7 +145,6 @@ def filter_products(request):
         items = Product.objects.filter(
             Q(description__icontains=request.GET.get('q'))
         )
-        print(items)
         
         return JsonResponse({
             "items":[

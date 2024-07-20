@@ -1,0 +1,31 @@
+<ul class="list-group" id="list-categories" style="border:0px;width:100%;">
+</ul>
+
+<script>
+  const getCategories = ()=>{
+    fetch('http://127.0.0.1:8000/api/v1/category/all/')
+    .then(response => response.json())
+    .then(result => {
+      const menuEl = document.querySelector('#list-categories')
+      const categories = result.data;
+
+      categories.forEach(el =>{
+        const a = document.createElement('a')
+        a.href = el.filter_url
+
+        a.innerHTML = `
+          <a class="list-group-item d-flex justify-content-between list-group-item-action" style="border:0px">
+            <label class="form-check-label" for="firstCheckbox">${el.description}</label>
+            <span class="badge text-bg-secondary rounded-pill">${el.count_items}</span>
+          </a>
+
+        `
+        menuEl.appendChild(a)
+      })
+
+    })
+    .catch(error => console.log(error))
+  }
+
+  getCategories()
+</script>
