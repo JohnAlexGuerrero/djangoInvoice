@@ -1,22 +1,26 @@
-<div class="dropdown">
-    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Categoria
-    </button>
-    <ul class="dropdown-menu" id="dropdown-category"></ul>
-</div>
+<ul class="list-group" id="list-categories" style="border:0px;width:100%;">
+</ul>
 
 <script>
   const getCategories = ()=>{
-    fetch('http://127.0.0.1:8000/api/v1/category/all')
+    fetch('http://127.0.0.1:8000/api/v1/category/all/')
     .then(response => response.json())
     .then(result => {
-      const menuEl = document.querySelector('#dropdown-category')
+      const menuEl = document.querySelector('#list-categories')
       const categories = result.data;
 
       categories.forEach(el =>{
-        const li = document.createElement('li')
-        li.innerHTML = `<li><a class="dropdown-item" href="#">${el.description}</a></li>`
-        menuEl.appendChild(li)
+        const a = document.createElement('a')
+        a.href = el.filter_url
+
+        a.innerHTML = `
+          <a class="list-group-item d-flex justify-content-between list-group-item-action" style="border:0px">
+            <label class="form-check-label" for="firstCheckbox">${el.description}</label>
+            <span class="badge text-bg-secondary rounded-pill">${el.count_items}</span>
+          </a>
+
+        `
+        menuEl.appendChild(a)
       })
 
     })

@@ -10,18 +10,25 @@ Inventario
 <div class="container mt-5">
     <div class="d-flex justify-content-between">
         <h2>Inventario</h2>
-        {% include "inventory/category/listCategories.html" %}
-
+        
+        {% include "inventory/edit.html" %}
         {% include "inventory/new.html" %}
     </div>
-    {% include "inventory/edit.html" %}
+    <div class="row">
+        <div class="col-sm-3">
+            {% include "inventory/category/listCategories.html" %}
+        </div>
+        <div class="col-sm-9">
+            {% include "inventory/products.html" %}
+        </div>
+    </div>
 </div>
-
-{% include "inventory/products.html" %}
 
 {% endblock content %}
 
 {% block javascript %}
 <script>
+      
+    
 </script>
 {% endblock javascript %}

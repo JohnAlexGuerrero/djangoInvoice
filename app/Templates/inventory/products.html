@@ -141,7 +141,7 @@
   .acceptButton {
     width: 50px;
     height: 30px;
-    background-color: #dadad;
+    background-color: #dadada;
     transition-duration: .2s;
     border: none;
     color: rgb(46, 46, 46);
@@ -156,7 +156,7 @@
     height: 30px;
     background-color: a;
     transition-duration: .2s;
-    color: ;
+    color: darkcyan;
     border: none;
     cursor: not-allowed;
     font-weight: 600;
@@ -166,7 +166,7 @@
   }
   
   .acceptButton:hover {
-    background-color: #dadad;
+    background-color: #dadada;
     box-shadow: 0 10px 15px -3px #bebdbd, 0 4px 6px -2px #bebdbd;
     transition-duration: .2s;
   }
@@ -188,21 +188,19 @@
 </div>
 
 <script>
-  const APIURL = 'http://127.0.0.1:8000/api/v1/'
 
+  const generateURL = (urlRef)=>{
+    let sizeUrl = urlRef.length
+    let currentUrlPage = urlRef.substring(22, sizeUrl)
+    let url = currentUrlPage.replace("inventory", "api/v1/products");
+
+    return urlRef.substring(0,22).concat(url,'');
+  }
+  
+  const baseURL = generateURL(location.href)
   const app = document.querySelector('#root')
   const search = document.querySelector('#search')
   const IMAGEPATH = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFFD8ZNTwMX7M0cgNY6nMqUet-GJfYqD00Yw&s'
-
-
-  const getProducts = (url) => {
-    axios.get(url)
-      .then(request => {
-        const data = request.data.items
-        showProducts(data)
-      })
-      .catch(error => console.log(error))
-  }
 
   const showProducts = (products) => {
     app.innerHTML = ''
@@ -238,6 +236,16 @@
     })
   }
 
+  const getProducts = (url) => {
+    axios.get(url)
+      .then(request => {
+        const products = request.data.items
+        console.log(products);
+        showProducts(products);
+      })
+      .catch(error => console.log(error))
+  }
+
   search.addEventListener('keyup', e => {
     e.preventDefault()
     let searchText = ''
@@ -247,9 +255,10 @@
       searchText = 'inventory/search?q=' + s
     }
 
-    getProducts(APIURL + searchText)
+    getProducts(baseURL)
   })
 
-  getProducts(`${APIURL}inventory/all/`)
+
+  getProducts(baseURL)
 
 </script>

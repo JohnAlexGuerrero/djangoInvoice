@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+
 import json
 
 from Category.models import Category
+from Product.models import Product
 
 # Create your views here.
 def categories_all(request):
@@ -13,7 +16,9 @@ def categories_all(request):
         "data": [
             {
                 "id": category.id,
-                "description": category.description
+                "description": category.description,
+                "count_items": category.getCountProducts(),
+                "filter_url": category.get_items_url()
             }
             for category in categories
         ]

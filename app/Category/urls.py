@@ -6,4 +6,5 @@ urlpatterns = [
     path('all/', categories_all, name='categories'),
     path('new/', create_category, name='category_new'),
     path('<int:pk>/edit/', update_category, name='category_edit'),
+
 ]

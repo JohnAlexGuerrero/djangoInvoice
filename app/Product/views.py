@@ -5,17 +5,32 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 import decimal
 
-from django.views.generic import TemplateView
-
 from Product.models import Product
 from Category.models import Category
 
 from Product.forms import ProductNewForm
 
 # Create your views here.
+#GET: filter products by category
+def filter_product_by_category(request, *args, **kwargs):
+    if kwargs['slug']:
+        items = Product.objects.filter(category__slug=kwargs['slug'])
 
-class HomeView(TemplateView):
-    template_name = "inventory/index.html"
+        return JsonResponse({
+            "items":[
+                {
+                    'id': item.id,
+                    'description': item.description,
+                    'slug': item.slug,
+                    'brand': item.brand,
+                    'codebar': item.codebar,
+                    'stock': item.stock,
+                    'unit': item.unit,
+                    'price': item.price
+                }
+                for item in items
+            ]
+        })
 
 #patch product
 @csrf_protect
@@ -130,7 +145,6 @@ def filter_products(request):
         items = Product.objects.filter(
             Q(description__icontains=request.GET.get('q'))
         )
-        print(items)
         
         return JsonResponse({
             "items":[
