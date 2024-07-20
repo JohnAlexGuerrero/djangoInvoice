@@ -82,27 +82,43 @@
     const formEl = document.querySelector('#submit')
     const categoryEl = document.querySelector('#category')
 
+    const getCategories = async()=>{    
+        const res = await fetch('http://127.0.0.1:8000/api/v1/category/all/')
+        const data = res.json();
     
-    const getCategories_ = ()=>{
-        axios({
+        return data
+    }
+
+    const showOptionsSelect = async()=>{
+        let categories = []
+
+        let data = getCategories()
+        await data.then(response => {
+            response.data.forEach(el => categories.push(el))
+        })
+
+        console.log(categories);
+
+        categories.forEach(el =>{
+            const option = document.createElement('option')
+            option.value = el.id
+            option.textContent = el.description
+
+            categoryEl.appendChild(option)
+        })
+        
+        /*axios({
             method: 'get',
             url: 'http://localhost:8000/api/v1/category/all/',
         })
         .then(response => {
             let categories = response.data.categories
             
-            categories.forEach(el =>{
-                const option = document.createElement('option')
-                option.value = el.id
-                option.textContent = el.description
-
-                categoryEl.appendChild(option)
-            })
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))*/
     }
     
-    getCategories_()
+    showOptionsSelect()
 
     formEl.addEventListener('click', (e) => {
         e.preventDefault()
