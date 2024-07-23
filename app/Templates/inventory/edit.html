@@ -73,7 +73,7 @@
   })
 
   const setEditProduct = (item) => {
-    axios.get(`http://127.0.0.1:8000/api/v1/inventory/item/${item}`)
+    axios.get(`http://127.0.0.1:8000/api/v1/products/item/${item}`)
       .then(response => {
         let data = response.data.item[0]
         id = formProduct(data)
@@ -98,7 +98,7 @@
   const updateProduct = (pk)=>{
     axios({
       method: 'patch',
-      url:`http://127.0.0.1:8000/api/v1/inventory/item/${pk}/edit`,
+      url:`http://127.0.0.1:8000/api/v1/products/item/${pk}/edit`,
       data:{
         description: nameEl.value,
         codebar: codeEl.value,

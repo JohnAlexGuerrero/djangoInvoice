@@ -1,5 +1,5 @@
 <button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#modalCategoria">
-    Nuevo categoria
+    Agregar
 </button>
 
 <!-- Modal -->
@@ -15,9 +15,9 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Nombre de categoria</label>
-                        <input type="text" class="form-control form-control-sm" id="description" placeholder="descripcion de la categoria">
+                        <input type="text" class="form-control form-control-sm" id="name-category" placeholder="descripcion de la categoria">
                     </div>
-                    <div class="modal-footer">
+                    <div class="">
                         <button type="submit" id="submit" class="btn btn-primary">Crear categoria</button>
                     </div>
                 </form>
@@ -27,12 +27,13 @@
 </div>
 
 <script>
-    const descriptionCategoryEl = document.querySelector('#description')
+    const descriptionCategoryEl = document.querySelector('#name-category')
     const formCategoryEl = document.querySelector('#formCategory')
 
     formCategoryEl.addEventListener('submit', (e)=>{
         e.preventDefault()
         createCategory()
+        location.reload()
     })
 
     const createCategory = ()=>{
