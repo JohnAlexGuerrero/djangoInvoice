@@ -48,7 +48,8 @@ def filter_product_by_category(request, *args, **kwargs):
                     'codebar': item.codebar,
                     'stock': item.stock,
                     'unit': item.unit,
-                    'price': item.price
+                    'price': item.price,
+                    'tax': item.tax
                 }
                 for item in items
             ]
@@ -69,6 +70,7 @@ def update_product(request, *args, **kwargs):
             product.unit = data['unit']
             product.cost = decimal.Decimal(data['cost'])
             product.price = decimal.Decimal(data['price'])
+            product.tax = decimal.Decimal(data['tax'])
             product.category = data['category']
             product.save()
  
@@ -108,6 +110,7 @@ def list_products(request):
                 'stock': item.stock,
                 'und': item.unit,
                 'price': item.price,
+                'tax': item.tax
             }
             for item in items
         ]
@@ -128,6 +131,7 @@ def create_product(request):
             unit=data['unit'],
             cost=data['cost'],
             price=data['price'],
+            tax=data['tax'],
             category= category
         )
         if product:
@@ -155,7 +159,8 @@ def product_detail(request, *args, **kwargs):
                 'stock': item.stock,
                 'unit': item.unit,
                 'price': item.price,
-                'cost': item.cost
+                'cost': item.cost,
+                'tax': item.tax
             }
             
         ]

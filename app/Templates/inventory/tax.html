@@ -1,0 +1,37 @@
+<div class="input-group mb-3">
+    <input type="checkbox" class="btn-check form-control-sm" id="btn-check-outlined" autocomplete="off">
+    <label class="btn btn-outline-primary input-group-text " for="btn-check-outlined">Iva</label>
+    <input type="text" class="form-control form-control-sm" id="id-tax" aria-label="Amount (to the nearest dollar)">
+    <span class="input-group-text">%</span>
+</div>
+
+<script>
+    const taxEl = document.querySelector('#id-tax')
+    const btnCkeckEl = document.querySelector('#btn-check-outlined')
+
+    
+    function validateKey(e){
+        const textHelpEl = document.getElementById('textHelp')
+        
+        if(e.keyCode > 47 && e.keyCode < 58){
+            return true
+        }else{
+            taxEl.value = ''
+        }
+    }
+    
+    btnCkeckEl.addEventListener('click', (e)=>{
+        if(e.target.checked === true){
+            taxEl.style.display = 'block'
+        }else{
+            taxEl.style.display = 'none'
+            taxEl.value = 0
+        }
+    })
+
+    taxEl.style.display = 'none'
+
+    taxEl.addEventListener('keyup', e => validateKey(e))
+
+</script>
+  

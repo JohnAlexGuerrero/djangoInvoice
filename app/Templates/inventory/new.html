@@ -51,14 +51,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Costo unitario</label>
-                        <input type="text" class="form-control form-control-sm" id="cost" placeholder="" value="0">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Costo unitario</label>
+                                <input type="text" class="form-control form-control-sm" id="cost" placeholder="" value="0">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                        <input type="text" class="form-control form-control-sm" id="price" placeholder="" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="exampleFormControlInput1" class="form-label">Impuesto</label>
+                                    {% include "inventory/tax.html" %}
+                                </div>
+                            </div>
+        
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                        <input type="text" class="form-control form-control-sm" id="price" placeholder="" value="0">
-                    </div>
+
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Categoria</label>
                         <select class="form-select form-select-sm" aria-label="Small select example" id="category">
@@ -136,6 +153,7 @@
         unitEl.value = 'Und'
         costEl.value = 0.0
         priceEl.value = 0.0
+        taxEl.value = ''
     }
     
     const createNewProduct = ()=>{
@@ -150,6 +168,7 @@
                 unit: unitEl.value,
                 cost: costEl.value,
                 price: priceEl.value,
+                tax: taxEl.value,
                 category: categoryEl.value
             }
         }

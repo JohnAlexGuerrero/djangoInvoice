@@ -15,6 +15,7 @@ class Product(models.Model):
     unit = models.CharField(("Unidad de medida"), max_length=50, default='Und')
     cost = models.DecimalField(("Costo"), max_digits=10, decimal_places=2, default=0.0)
     price = models.DecimalField(("Precio"), max_digits=10, decimal_places=2, default=0.0)
+    tax = models.DecimalField(("impuesto"), max_digits=3, decimal_places=2, default=0.0)
     weigth = models.FloatField(("Peso"), default=0.0)
     is_active = models.BooleanField(("Activo"), default=1)
     slug = models.SlugField()
@@ -35,4 +36,5 @@ class Product(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.description)
+        self.tax = 1 + (float(self.tax) / 100)
         return super().save(*args, **kwargs)
