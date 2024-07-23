@@ -11,6 +11,28 @@ from Category.models import Category
 from Product.forms import ProductNewForm
 
 # Create your views here.
+#GET: filter products by category and search item with input
+def search_item_in_category(request, *args, **kwargs):
+    if kwargs['slug']:
+        items = Product.objects.filter(category__slug=kwargs['slug'])
+        items = items.filter(Q(description__icontains=request.GET.get('q')))
+
+    return JsonResponse({
+        "items":[
+            {
+                'id': item.id,
+                'description': item.description,
+                'slug': item.slug,
+                'brand': item.brand,
+                'codebar': item.codebar,
+                'stock': item.stock,
+                'unit': item.unit,
+                'price': item.price
+            }
+            for item in items
+        ]
+    })
+    
 #GET: filter products by category
 def filter_product_by_category(request, *args, **kwargs):
     if kwargs['slug']:
